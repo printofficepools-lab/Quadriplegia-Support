@@ -1,0 +1,5 @@
+{
+  "name": "Quadriplegia Support Assistant",
+  "description": "An accessible AI-powered assistant designed to answer questions and provide support for individuals with quadriplegia, featuring voice-first interactions.",
+  "requestFramePermissions": ["microphone"]
+}

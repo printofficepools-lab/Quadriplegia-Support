@@ -1,0 +1,33 @@
+<svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="100" height="100" fill="white"/>
+  
+  <!-- Stick Figure Body (Blue) -->
+  <path d="M55 25C55 27.7614 52.7614 30 50 30C47.2386 30 45 27.7614 45 25C45 22.2386 47.2386 20 50 20C52.7614 20 55 22.2386 55 25Z" fill="#3333FF"/>
+  <path d="M50 30L45 55H55L60 30H50Z" fill="#3333FF"/>
+  
+  <!-- Arms/Wheelchair Frame -->
+  <path d="M45 40H35V45H45V40Z" fill="#3333FF"/>
+  <circle cx="33" cy="42.5" r="2.5" fill="#3333FF"/>
+  
+  <!-- Legs -->
+  <path d="M45 55L35 65L38 68L48 58L45 55Z" fill="#3333FF"/>
+  
+  <!-- Wheels with Eyes -->
+  <!-- Left Wheel -->
+  <circle cx="40" cy="75" r="12" fill="#3333FF"/>
+  <ellipse cx="40" cy="75" rx="8" ry="5" fill="#8B4513"/> <!-- Brown iris -->
+  <ellipse cx="40" cy="75" rx="4" ry="2.5" fill="white"/> <!-- Sclera -->
+  <circle cx="40" cy="75" r="1.5" fill="blue"/> <!-- Pupil -->
+  
+  <!-- Right Wheel -->
+  <circle cx="60" cy="75" r="12" fill="#3333FF"/>
+  <ellipse cx="60" cy="75" rx="8" ry="5" fill="#8B4513"/> <!-- Brown iris -->
+  <ellipse cx="60" cy="75" rx="4" ry="2.5" fill="white"/> <!-- Sclera -->
+  <circle cx="60" cy="75" r="1.5" fill="blue"/> <!-- Pupil -->
+  
+  <!-- Smiley Face -->
+  <path d="M48 26C48 26 49 27 50 27C51 27 52 26 52 26" stroke="white" stroke-width="0.5" stroke-linecap="round"/>
+  <circle cx="48.5" cy="24" r="0.5" fill="white"/>
+  <circle cx="51.5" cy="24" r="0.5" fill="white"/>
+</svg>
