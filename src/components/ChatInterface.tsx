@@ -90,10 +90,77 @@ export const ChatInterface: React.FC = () => {
         <div className="w-14 shrink-0" aria-hidden="true" />
       </header>
 
+      {/* Top Controls & Input Area */}
+      <div className="bg-gray-50 border-b border-black/5 shadow-sm z-20">
+        <div className="flex justify-center items-center gap-6 px-6 py-4 max-w-4xl mx-auto">
+          <button
+            onClick={startListening}
+            disabled={isListening || isLoading}
+            className={`w-20 h-20 rounded-full flex items-center justify-center transition-all shadow-lg focus-visible:ring-4 focus-visible:ring-blue-500 outline-none ${
+              isListening 
+                ? 'bg-green-500 text-white animate-pulse' 
+                : 'bg-blue-800 text-white hover:bg-blue-900 active:scale-95 disabled:opacity-50'
+            }`}
+            aria-label={isListening ? "Stop voice input" : "Start voice input"}
+            aria-pressed={isListening}
+          >
+            <Mic size={40} />
+          </button>
+
+          <button 
+            onClick={() => setIsAutoSpeak(!isAutoSpeak)}
+            className={`w-20 h-20 rounded-full flex items-center justify-center transition-all shadow-md focus-visible:ring-4 focus-visible:ring-blue-500 outline-none ${
+              isAutoSpeak 
+                ? 'bg-blue-800 text-white hover:bg-blue-900' 
+                : 'bg-gray-300 text-gray-600 hover:bg-gray-400'
+            }`}
+            title={isAutoSpeak ? "Auto-speak ON" : "Auto-speak OFF"}
+            aria-label={isAutoSpeak ? "Turn off auto-speak" : "Turn on auto-speak"}
+            aria-pressed={isAutoSpeak}
+          >
+            {isAutoSpeak ? <Volume2 size={36} /> : <VolumeX size={36} />}
+          </button>
+
+          <button 
+            onClick={() => setMessages([messages[0]])}
+            className="w-20 h-20 rounded-full flex items-center justify-center bg-blue-800 text-white hover:bg-blue-900 transition-all shadow-md focus-visible:ring-4 focus-visible:ring-blue-500 outline-none"
+            title="Clear Chat"
+            aria-label="Clear chat history"
+          >
+            <RefreshCw size={36} />
+          </button>
+        </div>
+
+        <div className="px-6 pb-6 max-w-4xl mx-auto">
+          <div className="w-full relative">
+            <input
+              type="text"
+              id="chat-input"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyPress={(e) => e.key === 'Enter' && handleSend(input)}
+              placeholder={isListening ? "Listening..." : "Type your question..."}
+              disabled={isLoading}
+              className="w-full p-4 pr-16 rounded-full bg-white border-[10px] border-blue-800 focus:ring-4 focus:ring-blue-800/20 text-base outline-none transition-all shadow-inner"
+              aria-label="Message input"
+              aria-busy={isLoading}
+            />
+            <button
+              onClick={() => handleSend(input)}
+              disabled={!input.trim() || isLoading}
+              className="absolute right-3 top-1/2 -translate-y-1/2 p-3 text-blue-800 disabled:text-gray-300 transition-colors focus-visible:ring-2 focus-visible:ring-blue-800 rounded-full outline-none"
+              aria-label="Send message"
+            >
+              <Send size={28} />
+            </button>
+          </div>
+        </div>
+      </div>
+
       {/* Chat Area */}
       <main 
         ref={mainRef}
-        className="flex-1 overflow-y-auto p-5 space-y-5 scrollbar-hide"
+        className="flex-1 overflow-y-auto p-5 space-y-5 custom-scrollbar"
         role="log"
         aria-live="polite"
         aria-relevant="additions text"
@@ -209,75 +276,7 @@ export const ChatInterface: React.FC = () => {
         )}
       </main>
 
-      {/* Input Area */}
-      <footer className="p-5 bg-white border-t border-black/5" role="contentinfo">
-        <div className="flex flex-col gap-4 items-center">
-          <button
-            onClick={startListening}
-            disabled={isListening || isLoading}
-            className={`w-20 h-20 rounded-full flex items-center justify-center transition-all shadow-lg focus-visible:ring-4 focus-visible:ring-blue-500 outline-none ${
-              isListening 
-                ? 'bg-green-500 text-white animate-pulse' 
-                : 'bg-blue-800 text-white hover:bg-blue-900 active:scale-95 disabled:opacity-50'
-            }`}
-            aria-label={isListening ? "Stop voice input" : "Start voice input"}
-            aria-pressed={isListening}
-          >
-            <Mic size={40} />
-          </button>
-          
-          <div className="w-[85%] mx-auto relative">
-            <input
-              type="text"
-              id="chat-input"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyPress={(e) => e.key === 'Enter' && handleSend(input)}
-              placeholder={isListening ? "Listening..." : "Type your question..."}
-              disabled={isLoading}
-              className="w-full p-4 pr-16 rounded-full bg-gray-100 border-[10px] border-blue-800 focus:ring-4 focus:ring-blue-800/20 text-base outline-none transition-all shadow-inner"
-              aria-label="Message input"
-              aria-busy={isLoading}
-            />
-            <button
-              onClick={() => handleSend(input)}
-              disabled={!input.trim() || isLoading}
-              className="absolute right-3 top-1/2 -translate-y-1/2 p-3 text-blue-800 disabled:text-gray-300 transition-colors focus-visible:ring-2 focus-visible:ring-blue-800 rounded-full outline-none"
-              aria-label="Send message"
-            >
-              <Send size={28} />
-            </button>
-          </div>
-        </div>
-        
-        <div className="flex justify-center gap-4 mt-4">
-          <button 
-            onClick={() => setIsAutoSpeak(!isAutoSpeak)}
-            className={`flex items-center gap-2 px-5 py-2.5 rounded-full transition-all focus-visible:ring-2 focus-visible:ring-blue-500 outline-none shadow-sm ${
-              isAutoSpeak 
-                ? 'bg-blue-800 text-white hover:bg-blue-900' 
-                : 'bg-blue-800/40 text-white/70 hover:bg-blue-800/60'
-            }`}
-            title={isAutoSpeak ? "Auto-speak ON" : "Auto-speak OFF"}
-            aria-label={isAutoSpeak ? "Turn off auto-speak" : "Turn on auto-speak"}
-            aria-pressed={isAutoSpeak}
-          >
-            {isAutoSpeak ? <Volume2 size={18} /> : <VolumeX size={18} />}
-            <span className="text-sm font-semibold">{isAutoSpeak ? "Speaker On" : "Speaker Off"}</span>
-          </button>
-          <button 
-            onClick={() => setMessages([messages[0]])}
-            className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-blue-800 text-white hover:bg-blue-900 transition-all focus-visible:ring-2 focus-visible:ring-blue-500 outline-none shadow-sm"
-            title="Clear Chat"
-            aria-label="Clear chat history"
-          >
-            <RefreshCw size={18} />
-            <span className="text-sm font-semibold">Clear History</span>
-          </button>
-        </div>
-      </footer>
-
-      {/* Bottom Branding Footer */}
+      {/* Branding Footer */}
       <footer className="p-1 border-t border-white/10 bg-blue-800 flex items-center z-10" role="contentinfo">
         <div className="w-14 h-7 shrink-0" aria-hidden="true" />
         <div className="flex-1 text-center">
